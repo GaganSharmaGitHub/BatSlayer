@@ -1,0 +1,31 @@
+body{
+    margin: 0;
+   overflow: hidden;
+width: 100vw;
+height: 100vh;
+}
+canvas{
+    background-image: url(./res/Fighting_Background.gif);
+    background-size: cover;
+}
+#upperHalf{
+    width: 100vw;
+    height: 10vh;
+}
+#weatherEffects{
+    background-image: url("./res/fog.png");
+    width: 100vw;
+height: 100vh;
+background-repeat: repeat-x;
+position: absolute;
+animation:move infinite 5000s;
+top: 0px;
+}
+@keyframes move{
+    from{
+        background-position-x: 0%;
+    }
+    to{
+        background-position-x: 50000%;
+    }
+}

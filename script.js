@@ -14,18 +14,25 @@ var batSprites={
 }
 var playerSprite={
     left:{
-        attack:[document.getElementById("playerAttackLeft1"),document.getElementById("playerAttackLeft2"),document.getElementById("playerAttackLeft3"),document.getElementById("playerAttackLeft4"),document.getElementById("playerAttackLeft5"),document.getElementById("playerAttackLeft6"),document.getElementById("playerAttackLeft7"),document.getElementById("playerAttackLeft8"),document.getElementById("playerAttackLeft9"),document.getElementById("playerAttackLeft10")],
+    swordEffect:[document.getElementById("swordEffL1"),document.getElementById("swordEffL2"),document.getElementById("swordEffL3")],
+    attack:[document.getElementById("playerAttackLeft1"),document.getElementById("playerAttackLeft2"),document.getElementById("playerAttackLeft3"),document.getElementById("playerAttackLeft4"),document.getElementById("playerAttackLeft5"),document.getElementById("playerAttackLeft6"),document.getElementById("playerAttackLeft7"),document.getElementById("playerAttackLeft8"),document.getElementById("playerAttackLeft9"),document.getElementById("playerAttackLeft10")],
     hurt:[document.getElementById("playerHurt1"),document.getElementById("playerHurtLeft2"),document.getElementById("playerHurtLeft3"),document.getElementById("playerHurtLeft4"),document.getElementById("playerHurtLeft5"),document.getElementById("playerHurtLeft6"),document.getElementById("playerHurtLeft7"),document.getElementById("playerHurtLeft8"),document.getElementById("playerHurtLeft9"),document.getElementById("playerHurtLeft10")],
     idle:[document.getElementById("playerIdleLeft1"),document.getElementById("playerIdleLeft2"),document.getElementById("playerIdleLeft3"),document.getElementById("playerIdleLeft4"),document.getElementById("playerIdleLeft5"),document.getElementById("playerIdleLeft6"),document.getElementById("playerIdleLeft7"),document.getElementById("playerIdleLeft8"),document.getElementById("playerIdleLeft9"),document.getElementById("playerIdleLeft10")],
     run:[document.getElementById("playerRunLeft1"),document.getElementById("playerRunLeft2"),document.getElementById("playerRunLeft3"),document.getElementById("playerRunLeft4"),document.getElementById("playerRunLeft5"),document.getElementById("playerRunLeft6"),document.getElementById("playerRunLeft7"),document.getElementById("playerRunLeft8"),document.getElementById("playerRunLeft9"),document.getElementById("playerRunLeft10")],
     },
     right:{
-        attack:[document.getElementById("playerAttack1"),document.getElementById("playerAttack2"),document.getElementById("playerAttack3"),document.getElementById("playerAttack4"),document.getElementById("playerAttack5"),document.getElementById("playerAttack6"),document.getElementById("playerAttack7"),document.getElementById("playerAttack8"),document.getElementById("playerAttack9"),document.getElementById("playerAttack10")],
+        swordEffect:[document.getElementById("swordEffect1"),document.getElementById("swordEffect2"),document.getElementById("swordEffect3")],
+    attack:[document.getElementById("playerAttack1"),document.getElementById("playerAttack2"),document.getElementById("playerAttack3"),document.getElementById("playerAttack4"),document.getElementById("playerAttack5"),document.getElementById("playerAttack6"),document.getElementById("playerAttack7"),document.getElementById("playerAttack8"),document.getElementById("playerAttack9"),document.getElementById("playerAttack10")],
     hurt:[document.getElementById("playerHurt1"),document.getElementById("playerHurt2"),document.getElementById("playerHurt3"),document.getElementById("playerHurt4"),document.getElementById("playerHurt5"),document.getElementById("playerHurt6"),document.getElementById("playerHurt7"),document.getElementById("playerHurt8"),document.getElementById("playerHurt9"),document.getElementById("playerHurt10")],
     idle:[document.getElementById("playerIdle1"),document.getElementById("playerIdle2"),document.getElementById("playerIdle3"),document.getElementById("playerIdle4"),document.getElementById("playerIdle5"),document.getElementById("playerIdle6"),document.getElementById("playerIdle7"),document.getElementById("playerIdle8"),document.getElementById("playerIdle9"),document.getElementById("playerIdle10")],
     run:[document.getElementById("playerRun1"),document.getElementById("playerRun2"),document.getElementById("playerRun3"),document.getElementById("playerRun4"),document.getElementById("playerRun5"),document.getElementById("playerRun6"),document.getElementById("playerRun7"),document.getElementById("playerRun8"),document.getElementById("playerRun9"),document.getElementById("playerRun10")],
  
     }
+}
+for(i in playerSprite.left.swordEffect){
+    console.log(playerSprite.right.swordEffect[i])
+    console.log("and")
+    console.log(playerSprite.left.swordEffect[i])
 }
 
 var expSprite=[document.getElementById("exp1"),document.getElementById("exp2"),document.getElementById("exp3"),document.getElementById("exp4"),document.getElementById("exp5"),document.getElementById("exp6"),document.getElementById("exp7"),document.getElementById("exp8"),document.getElementById("exp9"),document.getElementById("exp10"),document.getElementById("exp11"),document.getElementById("exp12"),document.getElementById("exp13"),document.getElementById("exp14")]
@@ -59,7 +66,7 @@ var bomb={
     size:100,
     exploding:false
 }
-var swordEff=document.getElementById("swordEffect1")
+
 //variables
 var currentBatStatus=batSprites.fly
 var currentBatFrame=0
@@ -135,14 +142,14 @@ function drawPlayer(){
         currentPlayerStatus=currentPlayerDir.idle
     }
     if(player.attacking)
-    {   
+    {    
         if(bat.x<player.x){
             currentPlayerDir=playerSprite.left}
         if(bat.x>=player.x){
-            currentPlayerDir=playerSprite.right
+            currentPlayerDir=playerSprite.right}
      currentPlayerStatus=currentPlayerDir.attack
      attack()
-    tempPlayerFrame++}
+    tempPlayerFrame++
     if(tempPlayerFrame>10){
         player.attacking=false
         currentBatStatus=batSprites.fly
@@ -172,12 +179,12 @@ function drawPlayer(){
     player.attacking=false
         currentBatStatus=batSprites.fly
         tempPlayerFrame=0
-}    console.log(player.attacking)
+}    console.log(player.attacking+" "+tempPlayerFrame)
    
 c.translate(player.x, player.y);
     c.drawImage(currentPlayerStatus[currentPlayerFrame], -player.size/2, -player.size/2,player.size,player.size)
     if(hit){
-        c.drawImage(swordEff, 0, -player.size*0.7,100,player.size)}
+        c.drawImage(currentPlayerDir.swordEffect[Math.round(currentPlayerFrame/10)], -player.size/2, -player.size*0.7,100,player.size)}
     c.setTransform(1, 0, 0, 1, 0, 0)       
 }
 //movePlayer

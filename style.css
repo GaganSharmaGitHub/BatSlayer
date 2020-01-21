@@ -1,26 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap');
 body{
     margin: 0;
    overflow: hidden;
 width: 100vw;
 height: 100vh;
+background-color: black;
+color: #ffff;
 }
 canvas{
-    background-image: url(./res/Fighting_Background.gif);
+    background-image: url(./res/bgfire.gif);
     background-size: cover;
+    z-index: 10;
 }
 #upperHalf{
     width: 100vw;
     height: 10vh;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
 }
+#playerAvatarContainer{
+    width: 40px;
+    overflow: hidden;
+}
+
+#batAvatarContainer{
+    width: 40px;
+    overflow: hidden;
+}
+#upperHalf >{border: black solid 2px;
+    z-index: 50;
+    font-size: 20px;
+    overflow: hidden;
+}
+#res{display: none;}
+table#playerData{width: 20%;
+height: 40px;
+font-size: 20px;
+}
+table#batData{width: 20%;
+    height: 40px;
+    font-size: 20px;
+    }
+#batData{width: 20%;}
+#message{width: 60%;
+text-align: center;
+font-family: 'Roboto Condensed', sans-serif;
+padding: 5px;
+animation:flash infinite 1s;
+font-size: xx-large;}
 #weatherEffects{
-    background-image: url("./res/fog.png");
-    width: 100vw;
+background-image: url("./res/fog.png");
+width: 100vw;
 height: 100vh;
 background-repeat: repeat-x;
 position: absolute;
 animation:move infinite 5000s;
 top: 0px;
 }
+td#playerHealthBar{
+    background-color: green;
+}
+#batHealthBar{
+    background-color: green;
+    
+}
+#playerAvatar{
+    height: 10vh;
+    display: inline-block;
+    margin: 0px;
+}
+
+#batAvatar{
+    height: 10vh;
+    display: inline-block;
+    margin: 0px;
+}
+@keyframes flash{
+    from{
+        color: transparent;
+    }
+    to{
+        color: #ffff;
+    }
+}
+
 @keyframes move{
     from{
         background-position-x: 0%;

@@ -9,12 +9,38 @@
     <title>BatSlayer</title>
 </head>
 <body>
-<div id="upperHalf"></div>
+
 <canvas id="canvas">
 sorry not supported :(
 </canvas>
 <div id="weatherEffects"></div>
+<div id="upperHalf">
+    <table id="playerData">
+        <tr>
+          <td rowspan="2" id="playerAvatarContainer" > <img id="playerAvatar" src="./Sprites/Hero-Guy-PNG/_Mode-Sword/01-Idle/JK_P_Sword__Idle_000.png" alt=""></td>
+          <td id="playerLabel">Player</td>
+        </tr>
+        <tr>
+          <td style="background-color: green" id="playerHeathBar">1000</td>
+        </tr>
+      </table>
+      
+    <div id="message">Press space to attack</div>
+    <table id="batData">
+      <tr>
+      <td id="batLabel">bat</td>
+      <td rowspan="2" id="batAvatarContainer" > <img id="batAvatar" src="./Sprites/bat/03-Attack/__Bat02_Attack_003.png" alt=""></td>
+
+      </tr>
+      <tr>
+        
+        <td style="background-color: red; text-align: right;" id="batHealthBar">1000</td>
+
+
+      </tr>
+    </table>
 <div id="res">
+  <img src="./Sprites/Hero-Guy-PNG/swordeff.png" id="swordEffect1">
     bat fly
     <img src="./Sprites/bat/02-Fly/__Bat02_Fly_000.png" id="BatFly1">
     <img src="./Sprites/bat/02-Fly/__Bat02_Fly_001.png" id="BatFly2">

@@ -29,11 +29,6 @@ var playerSprite={
  
     }
 }
-for(i in playerSprite.left.swordEffect){
-    console.log(playerSprite.right.swordEffect[i])
-    console.log("and")
-    console.log(playerSprite.left.swordEffect[i])
-}
 
 var expSprite=[document.getElementById("exp1"),document.getElementById("exp2"),document.getElementById("exp3"),document.getElementById("exp4"),document.getElementById("exp5"),document.getElementById("exp6"),document.getElementById("exp7"),document.getElementById("exp8"),document.getElementById("exp9"),document.getElementById("exp10"),document.getElementById("exp11"),document.getElementById("exp12"),document.getElementById("exp13"),document.getElementById("exp14")]
 var bombFrame=0
@@ -48,7 +43,7 @@ var bat={
     size:300
 }
 var player={
-    health:1000,
+    health:500,
     x:100,
     y:480,
     dx:0,
@@ -86,6 +81,13 @@ physics()
 drawBat()
 drawPlayer()
 movePlayer()
+
+if(!bomb.active){
+    bomb.active=true
+    bomb.x=Math.round(Math.random()*(canvasWidth-200))+200
+    bomb.y=100
+    bomb.dy=40
+}
 if(bomb.active){drawBomb()}
 moveBat()
 window.addEventListener("keydown", function(event){control(event.keyCode)} ,true)
@@ -94,7 +96,7 @@ window.addEventListener("keydown", function(event){control(event.keyCode)} ,true
 //update function
 function updateBat(){
     currentBatFrame=++currentBatFrame%currentBatStatus.length
-    
+    document.getElementById("batAvatar").src=batSprites.fly[currentBatFrame].src
 
 }
 function updatePlayer(){
@@ -119,12 +121,12 @@ function drawBomb(){
    else{
     c.drawImage(bombImg, -bomb.size/2,-bomb.size/2,bomb.size,bomb.size)
     if(bomb.x>canvasWidth+bomb.size||bomb.x-bomb.size/2<=0){bomb.dx=-bomb.dx}
-    if(bomb.y+bomb.size/2>canvasHeight||bomb.y-bomb.size/2<=0){bomb.dy=-bomb.dy;
+    if(bomb.y>=canvasHeight){bomb.dy=0;
     bomb.exploding=true}
     if(Math.abs(bomb.x-player.x)<player.size/2&&Math.abs(bomb.y-player.y)<player.size/2){
         bomb.exploding=true
-        player.health-=40
-        document.getElementById("playerData").innerHTML=player.health
+        player.health-=200
+        document.getElementById("playerHealthBar").innerHTML=player.health
         currentPlayerStatus=currentPlayerDir.hurt
     }
     bomb.x+=bomb.dx
@@ -155,7 +157,7 @@ function drawPlayer(){
         currentBatStatus=batSprites.fly
         tempPlayerFrame=0
         hit=false
-        console.log("stopped")
+
      currentPlayerStatus=currentPlayerDir.idle
     }
     }
@@ -179,12 +181,12 @@ function drawPlayer(){
     player.attacking=false
         currentBatStatus=batSprites.fly
         tempPlayerFrame=0
-}    console.log(player.attacking+" "+tempPlayerFrame)
+}
    
 c.translate(player.x, player.y);
     c.drawImage(currentPlayerStatus[currentPlayerFrame], -player.size/2, -player.size/2,player.size,player.size)
     if(hit){
-        c.drawImage(currentPlayerDir.swordEffect[Math.round(currentPlayerFrame/10)], -player.size/2, -player.size*0.7,100,player.size)}
+        c.drawImage(currentPlayerDir.swordEffect[Math.round(currentPlayerFrame/10)], (currentPlayerDir==playerSprite.left)?-100:0, -player.size*0.7,100,player.size)}
     c.setTransform(1, 0, 0, 1, 0, 0)       
 }
 //movePlayer
@@ -231,10 +233,6 @@ function attack(){
     currentBatStatus=batSprites.hurt
 document.getElementById("batHealthBar").innerHTML=bat.health
 
-if(bat.health%50==0){
-    bomb.active=true
-    bomb.x=Math.round(Math.random()*(canvasWidth-200))+200
-}
 
 hit=true
 }

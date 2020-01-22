@@ -8,7 +8,7 @@ background-color: black;
 color: #ffff;
 }
 canvas{
-    background-image: url(./res/bgfire.gif);
+    background-image: url("./res/Fighting_Background.gif");
     background-size: cover;
     z-index: 10;
 }

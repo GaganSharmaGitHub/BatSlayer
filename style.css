@@ -99,6 +99,20 @@ height: 100%;
 background-color: rgba(194, 9, 123, 0.11);
 
 }
+#attackBt{
+    border: royalblue thick solid;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: fixed;
+    bottom:50px;
+    right: 300px;
+}
+#attackBt img{
+    width: 100%;
+    margin-top: 50px;
+}
 @keyframes flash{
     from{
         color: transparent;

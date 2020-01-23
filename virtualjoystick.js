@@ -17,11 +17,12 @@ var VirtualJoystick	= function(opts)
 
 	this._container.appendChild(this._baseEl)
 	this._baseEl.style.position	= "absolute"
-	this._baseEl.style.display	= "none"
+	this._baseEl.style.display	= "block"
 	this._container.appendChild(this._stickEl)
 	this._stickEl.style.position	= "absolute"
 	this._stickEl.style.display	= "none"
-
+	this._baseEl.style.bottom="20px"
+	this._baseEl.style.left="200px"
 	this._pressed	= false;
 	this._touchIdx	= null;
 	
@@ -151,8 +152,9 @@ VirtualJoystick.prototype._onUp	= function()
 	this._stickEl.style.display	= "none";
 	
 	if(this._stationaryBase == false){	
-		this._baseEl.style.display	= "none";
-	
+		this._baseEl.style.display	= "block";
+		this._baseEl.style.bottom="20px"
+		this._baseEl.style.left="200px"
 		this._baseX	= this._baseY	= 0;
 		this._stickX	= this._stickY	= 0;
 	}

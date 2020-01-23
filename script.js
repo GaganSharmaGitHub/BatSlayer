@@ -7,9 +7,10 @@ canvas.width=canvasWidth;
 const c= canvas.getContext('2d')
 //joystick
 var joystick	= new VirtualJoystick({
-    container	: document.getElementById('#joystickCont'),
+    container	: document.getElementById('joystickCont'),
     mouseSupport	: true,
     limitStickTravel: true,
+    stickRadius:80,
 
 });
 //sprites
@@ -88,6 +89,25 @@ physics()
 drawBat()
 drawPlayer()
 movePlayer()
+if(joystick.up()){
+    if(player.y>canvasHeight-100)    
+    {player.dy=-62;
+    }
+}
+if(joystick.right()){
+    player.dx=20
+    player.attacking=false
+    currentPlayerDir=playerSprite.right
+    currentPlayerStatus=currentPlayerDir.run
+  } 
+
+  if(joystick.left()){
+    player.dx=-20
+    player.attacking=false
+    currentPlayerDir=playerSprite.left
+    currentPlayerStatus=currentPlayerDir.run
+  } 
+document.getElementById("attackBt").addEventListener("click",function (){player.attacking=true})
 
 if(!bomb.active){
     bomb.active=true
@@ -165,7 +185,7 @@ function drawPlayer(){
         tempPlayerFrame=0
         hit=false
 
-     currentPlayerStatus=currentPlayerDir.idle
+     currentPlayerStatus=currentPlayerDir.run
     }
     }
     else{
@@ -198,16 +218,19 @@ c.translate(player.x, player.y);
 }
 //movePlayer
 function movePlayer(){
-    if(player.x-(player.size/2)<=0){
-        player.dx=Math.round(0.1*Math.abs(player.dx)) 
+    if(player.x-(player.size/2)<0){
+            player.x=player.size/2
+            player.dx=0
         }
         if(player.x+(player.size/2)>canvasWidth){
-            player.dx=-Math.round(0.1*Math.abs(player.dx))
+            player.x=canvasWidth-player.size/2
+            player.dx=0
         }
         if(player.y-(player.size/2)<0){
         player.dy=10}
-        if(player.y+(player.size/2)>=canvasHeight){
-            player.dy=-Math.round(0.1*Math.abs(player.dy))}          
+        if(player.y+(player.size/2)>canvasHeight){
+            player.y=canvasHeight-player.size/2
+        player.dy=0}          
     player.x+=player.dx
     player.y+=player.dy
 }
@@ -247,11 +270,9 @@ hit=true
 console.log(canvasHeight)
 setInterval(animate,50)
 function control(p){
-        
+    if(p==32)//space
+    {player.attacking=true}
     switch(p) {
-        case 32://space
-        player.attacking=true
-        break
         case 37:// left key
           {player.dx=-20;
             player.attacking=false
@@ -269,16 +290,23 @@ function control(p){
         currentPlayerDir=playerSprite.right
         currentPlayerStatus=currentPlayerDir.run
         break;  
-        //case 40:// down key
-        //player.dy=12
-        //break;
-      }   
+        case 40:// down key
+        //player.dy=0
+        player.dx=0
+        break;
+      }  
+    }
+    function touchControls(){
+
     }
     function physics(){
         //gravity
         
-           player.dy+=6
+           
         //friction
-        if(player.y>canvasHeight-100){
+        if(player.y<canvasHeight-player.size/2){
+            player.dy+=6}
+            if(player.y>=canvasHeight-player.size/2){
         player.dx=Math.round(0.9*player.dx)}
+
     }

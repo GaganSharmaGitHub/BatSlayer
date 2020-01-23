@@ -7,7 +7,7 @@ height: 100vh;
 background-color: black;
 color: #ffff;
 }
-canvas{
+#GameCanvas{
     background-image: url("./res/Fighting_Background.gif");
     background-size: cover;
     z-index: 10;
@@ -77,6 +77,27 @@ td#playerHealthBar{
     height: 10vh;
     display: inline-block;
     margin: 0px;
+}
+#controls{
+    position: absolute;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+}
+#joystickCont{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    margin: 0px;
+    background-color: rgba(65, 105, 225, 0.171);
+}
+#attackButton{  
+ display: inline-block;
+ width: 49%;
+ margin: 0px;
+height: 100%;
+background-color: rgba(194, 9, 123, 0.11);
+
 }
 @keyframes flash{
     from{

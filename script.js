@@ -1,10 +1,17 @@
 //defining canvas
 const canvasHeight=Math.round(window.innerHeight)
 const canvasWidth= Math.round(screen.availWidth)
-const canvas= document.getElementById("canvas")
+const canvas= document.getElementById("GameCanvas")
 canvas.height=canvasHeight;
 canvas.width=canvasWidth;
 const c= canvas.getContext('2d')
+//joystick
+var joystick	= new VirtualJoystick({
+    container	: document.getElementById('#joystickCont'),
+    mouseSupport	: true,
+    limitStickTravel: true,
+
+});
 //sprites
 var batSprites={
     fly:[document.getElementById("BatFly1"),document.getElementById("BatFly2"),document.getElementById("BatFly3"),document.getElementById("BatFly4"),document.getElementById("BatFly5"),document.getElementById("BatFly6"),document.getElementById("BatFly7")],

@@ -21,20 +21,20 @@ sorry not supported :(
           <td id="playerLabel">Player</td>
         </tr>
         <tr>
-          <td style="background-color: green" id="playerHealthBar">500</td>
+          <td><div id="playerHealthBar" class="healthIndicator"> 500 </div></td>
         </tr>
       </table>
       
     <div id="message">Press space to attack</div>
     <table id="batData">
       <tr>
-      <td id="batLabel">bat</td>
+      <td id="batLabel" style="text-align: right;">Bat</td>
       <td rowspan="2" id="batAvatarContainer" > <img id="batAvatar" src="./Sprites/bat/03-Attack/__Bat02_Attack_003.png" alt=""></td>
 
       </tr>
       <tr>
         
-        <td style="background-color: red; text-align: right;" id="batHealthBar">1000</td>
+        <td> <div id="batHealthBar" class="healthIndicator"> 1000 </div></td>
 
 
       </tr>
@@ -47,6 +47,21 @@ sorry not supported :(
       <img src="Sprites\Hero-Guy-PNG\_Weapon\Sword01.png" alt="">
     </div>
   </div>
+</div>
+<div id="popUpScreen">
+  <canvas id="batOnPopUp"></canvas>
+  <h1>Bat Slayer</h1>
+  <canvas id="playerOnPopUp"></canvas>
+  <br>
+  <h3 id="gameOver">Start Game</h3>
+  <br>
+    <div id="popUpButtonContainer">
+      <button id="newGame" onclick="newGame()" class="glow-on-hover" type="button">New  Game</button>
+     <a href="./index.html" id="tryAgain"> <button class="glow-on-hover" type="button">Try Again</button></a>
+      <button class="glow-on-hover" type="button">Controls</button>
+      <button class="glow-on-hover" type="button">Credits</button>
+    </div>
+  
 </div>
 <div id="res">
   Effects
@@ -212,4 +227,5 @@ bomb
 
 <script src="./virtualjoystick.js"></script>
 <script src="script.js"></script>
+<script src="popUp.js"></script>
 </html>

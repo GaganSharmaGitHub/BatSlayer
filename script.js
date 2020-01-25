@@ -79,9 +79,22 @@ var currentPlayerFrame=0
 var selector=0
 var bombImg=document.getElementById("bomb")
 var tempPlayerFrame=0
+var gameScreen=null
+var pauseScreen=null
 //animation
 
 function animate(){
+    if(player.health<0){
+        document.getElementById("message").innerHTML="Game Over"
+        setTimeout(function(){ 
+            document.getElementById("newGame").style.display="none"
+            document.getElementById("tryAgain").style.display="block"
+            document.getElementById("popUpScreen").style.display="block"
+            document.getElementById("gameOver").innerHTML="Game Over"
+            return
+         }, 1500);
+        
+    }
 updateBat()
 updatePlayer()
 c.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -89,34 +102,15 @@ physics()
 drawBat()
 drawPlayer()
 movePlayer()
-if(joystick.up()){
-    if(player.y>canvasHeight-100)    
-    {player.dy=-62;
-    }
-}
-if(joystick.right()){
-    player.dx=20
-    player.attacking=false
-    currentPlayerDir=playerSprite.right
-    currentPlayerStatus=currentPlayerDir.run
-  } 
-
-  if(joystick.left()){
-    player.dx=-20
-    player.attacking=false
-    currentPlayerDir=playerSprite.left
-    currentPlayerStatus=currentPlayerDir.run
-  } 
-document.getElementById("attackBt").addEventListener("click",function (){player.attacking=true})
-
 if(!bomb.active){
     bomb.active=true
     bomb.x=Math.round(Math.random()*(canvasWidth-200))+200
     bomb.y=100
-    bomb.dy=40
+    bomb.dy=15
 }
 if(bomb.active){drawBomb()}
 moveBat()
+touchControls()
 window.addEventListener("keydown", function(event){control(event.keyCode)} ,true)
 }
 
@@ -124,6 +118,8 @@ window.addEventListener("keydown", function(event){control(event.keyCode)} ,true
 function updateBat(){
     currentBatFrame=++currentBatFrame%currentBatStatus.length
     document.getElementById("batAvatar").src=batSprites.fly[currentBatFrame].src
+document.getElementById("batHealthBar").innerHTML=bat.health
+document.getElementById("batHealthBar").style.width=(bat.health/10)+"%"
 
 }
 function updatePlayer(){
@@ -154,7 +150,8 @@ function drawBomb(){
         bomb.exploding=true
         player.health-=200
         document.getElementById("playerHealthBar").innerHTML=player.health
-        currentPlayerStatus=currentPlayerDir.hurt
+        document.getElementById("playerHealthBar").style.width=(player.health/5)+"%"
+        player.hurt=true
     }
     bomb.x+=bomb.dx
     bomb.y+=bomb.dy}
@@ -170,6 +167,27 @@ function drawPlayer(){
     if(player.dx==0){
         currentPlayerStatus=currentPlayerDir.idle
     }
+    if(player.dx>0){
+        currentPlayerDir=playerSprite.right
+        currentPlayerStatus=currentPlayerDir.run
+    }
+    if(player.dx<0){
+        currentPlayerDir=playerSprite.left
+        currentPlayerStatus=currentPlayerDir.run
+    }
+    if(player.hurt)
+    {
+        if(tempPlayerFrame>30){
+            player.hurt=false
+            tempPlayerFrame=0
+            
+         currentPlayerStatus=currentPlayerDir.run
+        }
+     else{currentPlayerStatus=currentPlayerDir.hurt
+    tempPlayerFrame++
+     }
+    }
+
     if(player.attacking)
     {    
         if(bat.x<player.x){
@@ -190,24 +208,8 @@ function drawPlayer(){
     }
     else{
     hit=false
-    if(player.hurt)
-    {
-        if(bat.x<player.x){
-            currentPlayerDir=playerSprite.left}
-        if(bat.x>=player.x){
-            currentPlayerDir=playerSprite.right
-     currentPlayerStatus=currentPlayerDir.hurt
-    tempPlayerFrame++}
-    if(tempPlayerFrame>30){
-        player.attacking=false
-        tempPlayerFrame=0
-        
-     currentPlayerStatus=currentPlayerDir.idle
-    }
-    }
     player.attacking=false
         currentBatStatus=batSprites.fly
-        tempPlayerFrame=0
 }
    
 c.translate(player.x, player.y);
@@ -246,29 +248,35 @@ function moveBat(){
     bat.x+=bat.dx
 }
 function batMovement(x){
+    
 if(selector==0){
-    bat.y= 150*Math.sin(bat.x/50)+350
+    bat.y= 100*Math.sin(bat.x/50)+350*(bat.health/1000)
 }
 if(selector==1){
-    bat.y= 150*Math.cos(bat.x/50)+350
+    bat.y= 100*Math.cos(bat.x/50)+350*(bat.health/1000)
 }
 else{
-    bat.y= 150*Math.cos(bat.x/50)+350
+    bat.y= 100*Math.cos(bat.x/50)+350*(bat.health/1000)
 }
+
 }
 //attacks
 function attack(){
  if(Math.abs(player.x-bat.x)<=bat.size/2&&Math.abs(player.y-bat.y)<=bat.size/2)
-{bat.health-=1
+{bat.health-=10
     currentBatStatus=batSprites.hurt
-document.getElementById("batHealthBar").innerHTML=bat.health
-
 
 hit=true
 }
 }
-console.log(canvasHeight)
+function newGame()
+{ player.health=500
+    bat.health=1000
+    document.getElementById("popUpScreen").style.display="none"
 setInterval(animate,50)
+
+  
+}
 function control(p){
     if(p==32)//space
     {player.attacking=true}
@@ -276,8 +284,6 @@ function control(p){
         case 37:// left key
           {player.dx=-20;
             player.attacking=false
-            currentPlayerDir=playerSprite.left
-            currentPlayerStatus=currentPlayerDir.run
         break;}
         case 38:// up key
         if(player.y>canvasHeight-100)    
@@ -287,8 +293,6 @@ function control(p){
         case 39:// right key
         player.dx=20
         player.attacking=false
-        currentPlayerDir=playerSprite.right
-        currentPlayerStatus=currentPlayerDir.run
         break;  
         case 40:// down key
         //player.dy=0
@@ -297,7 +301,22 @@ function control(p){
       }  
     }
     function touchControls(){
-
+        if(joystick.up()){
+            if(player.y>canvasHeight-100)    
+            {player.dy=-62;
+            }
+        }
+        if(joystick.right()){
+            player.dx=20
+            player.attacking=false
+          } 
+        
+          if(joystick.left()){
+            player.dx=-20
+            player.attacking=false
+          } 
+        document.getElementById("attackBt").addEventListener("click",function (){player.attacking=true})
+        
     }
     function physics(){
         //gravity
@@ -307,6 +326,10 @@ function control(p){
         if(player.y<canvasHeight-player.size/2){
             player.dy+=6}
             if(player.y>=canvasHeight-player.size/2){
-        player.dx=Math.round(0.9*player.dx)}
-
+       player.dx=Math.floor(0.9*player.dx)
+       if(player.dx<-1&&player.dx>-10){player.dx=0
+    //console.log(true)
+       }
+    //console.log("speed"+player.dx)
+    }
     }

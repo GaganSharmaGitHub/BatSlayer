@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap');
 body{
     margin: 0;
@@ -35,6 +36,7 @@ color: #ffff;
     font-size: 20px;
     overflow: hidden;
 }
+
 #res{display: none;}
 table#playerData{width: 20%;
 height: 40px;
@@ -60,11 +62,21 @@ position: absolute;
 animation:move infinite 5000s;
 top: 0px;
 }
-td#playerHealthBar{
-    background-color: green;
+#playerHealthBar{
+   background-color: green; 
+}
+.healthIndicator{height: 100%;
+
+position: relative;
+width: 100%;
+
+top: 0px;
 }
 #batHealthBar{
-    background-color: green;
+    text-align: right;
+    position: relative;
+    background-color: red;
+    float: right;
     
 }
 #playerAvatar{
@@ -89,15 +101,12 @@ td#playerHealthBar{
     width: 50%;
     height: 100%;
     margin: 0px;
-    background-color: rgba(65, 105, 225, 0.171);
 }
 #attackButton{  
  display: inline-block;
  width: 49%;
  margin: 0px;
 height: 100%;
-background-color: rgba(194, 9, 123, 0.11);
-
 }
 #attackBt{
     border: royalblue thick solid;
@@ -112,6 +121,121 @@ background-color: rgba(194, 9, 123, 0.11);
 #attackBt img{
     width: 100%;
     margin-top: 50px;
+}
+#popUpScreen{
+    background: white;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, rgb(143, 143, 143), rgb(0, 0, 0));  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom left, rgb(143, 143, 143), rgb(0, 0, 0)); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    display: block;
+    position: absolute;
+    top: 0px;
+}
+#playerOnPopUp{
+    position: absolute;
+    top: 0px;
+    left: 10px;
+}
+#batOnPopUp{
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}
+#popUpButtonContainer{
+    width: 100%;
+    overflow: hidden;
+    height:300px;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px;
+  flex-direction: column;
+
+}
+#popUpScreen h1{
+    float: left;
+    text-align: center;
+    display: block;
+    font-size: 120px;
+    width: 100%;
+    line-height: 100px;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+#gameOver{
+    text-align: center;
+    display: block;
+    margin: 0px;
+    font-size: 60px;
+    overflow: hidden;
+    width: 100%;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    animation:flash infinite 1s;
+    
+}
+#tryAgain{display: none;}
+.glow-on-hover {
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    font-size: large;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
 }
 @keyframes flash{
     from{

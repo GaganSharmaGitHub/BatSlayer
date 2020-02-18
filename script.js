@@ -93,7 +93,15 @@ function animate(){
             document.getElementById("gameOver").innerHTML="Game Over"
             return
          }, 1500);
-        
+         if(bat.health<0){
+            document.getElementById("message").innerHTML="Game Over"
+            setTimeout(function(){ 
+                document.getElementById("newGame").style.display="none"
+                document.getElementById("tryAgain").style.display="block"
+                document.getElementById("popUpScreen").style.display="block"
+                document.getElementById("gameOver").innerHTML="Wow! you finished the game!!"
+                return
+             }, 1500);
     }
 updateBat()
 updatePlayer()
